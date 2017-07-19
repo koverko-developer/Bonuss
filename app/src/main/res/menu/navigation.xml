@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_qrcode_scan"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_sale"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_book_open_page_variant"
+        android:title="@string/title_notifications" />
+
+    <item
+        android:id="@+id/navigation_notificationsd"
+        android:icon="@drawable/ic_book_open_page_variant"
+        android:title="Акции" />
+
+</menu>

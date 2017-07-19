@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "459472498705",
+    "firebase_url": "https://vteme-a45f2.firebaseio.com",
+    "project_id": "vteme-a45f2",
+    "storage_bucket": "vteme-a45f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459472498705:android:8db26c6398e89cb4",
+        "android_client_info": {
+          "package_name": "by.anikamobiappstudio.vteme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459472498705-eo9tmthrfld60o1vcd4k3ived67nk1uf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.anikamobiappstudio.vteme",
+            "certificate_hash": "dd32a3e3982bea786b165f8a0777350852bb8424"
+          }
+        },
+        {
+          "client_id": "459472498705-kkng9vk9fs0jtnmlp99tpm9deb9r8c1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzZjF7CrvGTWyXZenD4WgaMQd1WNCDH3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459472498705-kkng9vk9fs0jtnmlp99tpm9deb9r8c1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

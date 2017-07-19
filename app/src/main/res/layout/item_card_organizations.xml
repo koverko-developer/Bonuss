@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="infoOrganizations"
+            type="com.example.x.bonus.fragments.classes.OrganizationObject"/>
+        <variable
+            name="organizationsHandler"
+            type="com.example.x.bonus.handler.OrganizationsHandlers"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:clickable="@{infoOrganizations.isMy ? false : true}"
+        android:onClick="@{organizationsHandler.onClick}"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="90dp"
+                        android:text="@{infoOrganizations.city}"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView19"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="70dp"
+                        app:srcCompat="@drawable/ic_location_on_black_24dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="70dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="6dp"
+                            android:layout_toEndOf="@+id/imageView8"
+                            android:layout_toRightOf="@+id/imageView8"
+                            android:gravity="center_vertical"
+                            android:text="@{infoOrganizations.nameCategory}"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:src="@{infoOrganizations.imgCategory}" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="25sp"
+                        android:text="@{infoOrganizations.name}"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@{infoOrganizations.img}" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/colorControlHighlight"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp">
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="24dp"
+
+                        android:text="@{infoOrganizations.time}" />
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_clock" />
+                </RelativeLayout>
+
+                <com.andexert.library.RippleView
+                    android:id="@+id/more"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:visibility="@{infoOrganizations.isMy ? View.VISIBLE : View.GONE}"
+                    rv_centered="true">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="16dp"
+
+                    android:background="@drawable/btn_auth"
+                    android:onClick="@{organizationsHandler.onClickButton}"
+                    android:text="получить скидку"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                     />
+                    </com.andexert.library.RippleView>
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:onClick="@{organizationsHandler.onClickCall}"
+                    android:text="@{infoOrganizations.phone}"
+                    android:visibility="@{infoOrganizations.isMy ? View.GONE : View.VISIBLE}" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:visibility="@{infoOrganizations.isMy ? View.GONE : View.VISIBLE}"
+                android:layout_height="40dp"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:srcCompat="@drawable/ic_sale" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@{infoOrganizations.sale}"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

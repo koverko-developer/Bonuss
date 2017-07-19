@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">ВТЕМЕ</string>
+    <string name="title_activity_registration">Регистрация</string>
+    <string name="reg">Пожалуйста, зарегистрируйтесь в нашем приложении</string>
+    <string name="title_activity_login">Вход в приложение</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">QR</string>
+    <string name="title_dashboard">Скидки</string>
+    <string name="title_notifications">Каталог</string>
+    <string name="qr_1">Это Ваш QR-код</string>
+    <string name="qr_2">Отсканируйте его у продавца, получите скидку или бонусные баллы</string>
+    <string name="text_1">Дарите своим друзьям скидку 5 BYN и получайте за это 5 BYN бонусов!</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_list_action">ListActionActivity</string>
+    <string name="title_activity_info_shops">InfoShopsActivity</string>
+    <string name="title_activity_nacopit">NacopitActivity</string>
+    <string name="info_nakopit">Совершая покупки в этом магазине, \nВы увеличиваете процент скидки</string>
+    <string name="share_text">Доброе время суток, мой друг! Приглашаю тебя присоединиться к нашей бонусной программе \"ВТЕМЕ\". А ты ВТЕМЕ? Нет? Присоединяйся!</string>
+    <string name="edit_password">Для восстановления пароля введите Ваш электронный ящик, указанный при регистрации. Пароль будет выслан в ближайшее время.</string>
+    <string name="title_activity_notification">Акции</string>
+    <string name="google_maps_key">AIzaSyBwcHVVKiuW5OqOQcvHv-b3GPKpPEkFMYw</string>
+    <string name="sds">AIzaSyBwcHVVKiuW5OqOQcvHv-b3GPKpPEkFMYw</string>
+    <string name="text_no_company">Спасибо, что Вы с Нами. \nВ каталоге пока больше нет магазинов.\n Все магазины, которые присоединились к системе ВТЕМЕ вы добавили в избранные. Как только магазин присоединиться к системе, он отобразиться в каталоге.\n \nА пока в разделе АКЦИИ Вы можете ознакомиться с действующими акциями магазинов нашего города. \n\n Приятных покупок!</string>
+    <string name="text_no_my">В данном разделе отобразятся Ваши любимые магазины, присоединившиеся к системе ВТЕМЕ, которые предлагают Вам скидки и акции. \n\nЭти магазины Вы можете увидеть в разделе КАТАЛОГ, кликнув на иконку \"корзины\" в правом нижнем углу.\n\n\n\nХорошего Вам настроения!\n Приятных покупок!</string>
+    <string name="title_activity_filter">FilterActivity</string>
+</resources>
