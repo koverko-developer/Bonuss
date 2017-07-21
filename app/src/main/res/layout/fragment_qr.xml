@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="false"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginRight="20dp"
                     android:onClick="@{handlerQR.onClickExit}"
                     app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />
             </com.andexert.library.RippleView>
