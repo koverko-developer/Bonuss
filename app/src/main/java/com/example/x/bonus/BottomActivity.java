@@ -316,17 +316,21 @@ public class BottomActivity extends AppCompatActivity implements OnBottomNavigat
 
 
     public void insertInToDB(OrganizationObject object, Bitmap imgLogo, Bitmap imgCategory){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.KEY_NAMEO, object.getName().get());
-        contentValues.put(DBHelper.KEY_NAMEC, object.getNameCategory().get());
-        contentValues.put(DBHelper.KEY_CITY, object.getCity().get());
-        contentValues.put(DBHelper.KEY_PHONE, object.getPhone().get());
-        contentValues.put(DBHelper.KEY_TIME, object.getTime().get());
-        contentValues.put(DBHelper.KEY_SALE, object.getSale().get());
-        contentValues.put(DBHelper.KEY_IMGO, Utilities.getBytes(imgLogo));
-        contentValues.put(DBHelper.KEY_IMGC, Utilities.getBytes(imgCategory));
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBHelper.KEY_NAMEO, object.getName().get());
+            contentValues.put(DBHelper.KEY_NAMEC, object.getNameCategory().get());
+            contentValues.put(DBHelper.KEY_CITY, object.getCity().get());
+            contentValues.put(DBHelper.KEY_PHONE, object.getPhone().get());
+            contentValues.put(DBHelper.KEY_TIME, object.getTime().get());
+            contentValues.put(DBHelper.KEY_SALE, object.getSale().get());
+            contentValues.put(DBHelper.KEY_IMGO, Utilities.getBytes(imgLogo));
+            contentValues.put(DBHelper.KEY_IMGC, Utilities.getBytes(imgCategory));
 
-        database.insert(DBHelper.TABLE_COMPANY, null, contentValues);
+            database.insert(DBHelper.TABLE_COMPANY, null, contentValues);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 //    public List<OrganizationObject> readDB(){

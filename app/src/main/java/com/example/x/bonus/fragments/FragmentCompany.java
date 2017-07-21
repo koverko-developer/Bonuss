@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.x.bonus.BottomActivity;
 import com.example.x.bonus.*;
@@ -38,6 +39,9 @@ import com.example.x.bonus.fragments.classes.OrganizationObject;
 import com.example.x.bonus.retrofit.App;
 import com.example.x.bonus.retrofit.Company;
 import com.example.x.bonus.retrofit.Otvet;
+import com.example.x.bonus.retrofit.filter.CategoryFilter;
+import com.example.x.bonus.retrofit.filter.CityFilter;
+import com.example.x.bonus.retrofit.filter.Filter;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -100,9 +104,7 @@ public class FragmentCompany extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         try {
             v = inflater.inflate(R.layout.fragment_catalog, container, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         mSettings = this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         ids = mSettings.getString(APP_PREFERENCES_ID,"");
 
@@ -155,6 +157,8 @@ public class FragmentCompany extends Fragment {
         });
 
         Button btnClose = (Button) v.findViewById(R.id.button3);
+
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,27 +166,29 @@ public class FragmentCompany extends Fragment {
             }
         });
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Пинск");
-        list.add("Минск");
-        list.add("Гродно");
-
-        ArrayList<String> list1 = new ArrayList<>();
-        list1.add("Зоотовары");
-        list1.add("IT-технологии");
-        list1.add("Досуг");
-
-        //setSpinner(list1,list);
-
         Button btnApply = (Button) v.findViewById(R.id.buttonApply);
+
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 
+        if (currentapiVersion >= 22) {
+            // Do something for 14 and above versions
+            Drawable imgClose = v.getResources().getDrawable( R.drawable.ic_clear_black_24dp_red);
+            Drawable imgDone = v.getResources().getDrawable( R.drawable.ic_done_black_24dp);
+            btnDone.setCompoundDrawablesWithIntrinsicBounds(imgDone,null,null,null);
+            btnClose.setCompoundDrawablesWithIntrinsicBounds(imgClose,null,null,null);
+
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getAllCompany(ids);
+
 
         //setRecyclerView();
 
@@ -197,7 +203,7 @@ public class FragmentCompany extends Fragment {
 
                 List<Company> list = response.body();
                 lists = list;
-                setRecyclerView(list);
+                setRecyclerView(list,1);
             }
 
             @Override
@@ -208,7 +214,7 @@ public class FragmentCompany extends Fragment {
 
     }
 
-    private void setRecyclerView(List<Company> lists){
+    private void setRecyclerView(List<Company> lists, int type){
         organizationList.clear();
         list = lists;
         recyclerView = (RecyclerView) v.findViewById(R.id.relCompany);
@@ -239,12 +245,17 @@ public class FragmentCompany extends Fragment {
             organizationList.add(object);
         }
         TextView tv = (TextView) v.findViewById(R.id.textView41);
-        if(organizationList.size()==0) tv.setVisibility(View.VISIBLE);
+        if(organizationList.size()==0) {
+            tv.setVisibility(View.VISIBLE);
+            if(type==0) tv.setText("По вашему фильтру ничего не найдено...");
+        }
         progressBar.setVisibility(View.GONE);
+
+        getFilter();
 
     }
 
-    private void setSpinner(ArrayList<String> arrayCity, ArrayList<String> arrayCategory){
+    private void setSpinner(List<String> arrayCity, List<String> arrayCategory){
 
         spinner = (Spinner) v.findViewById(R.id.spinner);
         spinner2 = (Spinner) v.findViewById(R.id.spinner2);
@@ -260,9 +271,10 @@ public class FragmentCompany extends Fragment {
     private void sort(String city, String category){
         List<Company> newList = new ArrayList<>();
         for(int i =0 ; i< lists.size(); i++){
-            if(lists.get(i).getCity().getCity().contains(city)) newList.add(lists.get(i));
+            if(lists.get(i).getCity().getCity().contains(category) &&
+                    lists.get(i).getCategoryId().getCompanyCategory().contains(city)) newList.add(lists.get(i));
         }
-        setRecyclerView(newList);
+        setRecyclerView(newList,0);
     }
 
     public void cardClick(int position){
@@ -395,9 +407,13 @@ public class FragmentCompany extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Bitmap bitmap = Imagehandler(img);
-            Bitmap category = Imagehandler(imgC);
-            activity.insertInToDB(object, bitmap, category);
+            try {
+                Bitmap bitmap = Imagehandler(img);
+                Bitmap category = Imagehandler(imgC);
+                activity.insertInToDB(object, bitmap, category);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
@@ -413,6 +429,34 @@ public class FragmentCompany extends Fragment {
     private void hideFilter(){
         relFilter.startAnimation(animFilter2);
         toolbarRel.startAnimation(animToolbar2);
+    }
+
+    private void getFilter(){
+        App.getApi().getFilter().enqueue(new Callback<List<Filter>>() {
+            @Override
+            public void onResponse(Call<List<Filter>> call, Response<List<Filter>> response) {
+                Filter filter = response.body().get(0);
+                List<String> list = new ArrayList<String>();
+                List<String> list1 = new ArrayList<>();
+                List<CategoryFilter> category = filter.getCategory();
+
+                List<CategoryFilter> city = filter.getCategory();
+                for(int i = 0; i< category.size(); i++){
+                   list1.add(category.get(i).getCompanyCategory());
+                }
+                List<CityFilter> listCity = filter.getCity();
+                for(int i =0 ;i< listCity.size(); i++){
+                    list.add(listCity.get(i).getCity());
+                }
+
+                setSpinner(list1,list);
+            }
+
+            @Override
+            public void onFailure(Call<List<Filter>> call, Throwable t) {
+                Toast.makeText(activity, "Ошибка подключения к серверу...", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     Animation.AnimationListener animToolbarListener = new Animation.AnimationListener() {

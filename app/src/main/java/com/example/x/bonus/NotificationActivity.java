@@ -50,34 +50,39 @@ public class NotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        try {
+            setContentView(R.layout.activity_notification);
 
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        id = mSettings.getString(APP_PREFERENCES_ID,"");
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        progress = (ProgressBar) findViewById(R.id.progressBar2);
+            mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            id = mSettings.getString(APP_PREFERENCES_ID,"");
 
-        imgDeleteAll = (ImageView) findViewById(R.id.imageView22);
-        imgDeleteAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            progress = (ProgressBar) findViewById(R.id.progressBar2);
 
-            }
-        });
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerNotification);
-        final LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setHasFixedSize(true);
+            imgDeleteAll = (ImageView) findViewById(R.id.imageView22);
+            imgDeleteAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+                }
+            });
+            recyclerView = (RecyclerView) findViewById(R.id.recyclerNotification);
+            final LinearLayoutManager llm = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(llm);
+            recyclerView.setHasFixedSize(true);
 
-        getNotifiacation();
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
+
+            getNotifiacation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getNotifiacation() {

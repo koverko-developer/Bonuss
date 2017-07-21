@@ -2,6 +2,8 @@ package com.example.x.bonus.action;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +11,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +38,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mobi app on 26.06.2017.
@@ -42,6 +51,11 @@ public class FragmentListActions extends Fragment {
     ListView listView;
     ProgressBar progressBar;
     TextView tvEmpty;
+    Animation animToolbar, animFilter;
+    Animation animToolbar2, animFilter2;
+    RelativeLayout toolbarRel, relFilter;
+    Spinner spinner, spinner2;
+    String[] arrCityE;
 
 
     ArrayList<Shop> arrayListShop = new ArrayList<>();
@@ -54,38 +68,90 @@ public class FragmentListActions extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.activity_list_action, container, false);
+        try {
+            v = inflater.inflate(R.layout.activity_list_action, container, false);
 
-        listView = (ListView) v.findViewById(R.id.listAllAction);
-        progressBar = (ProgressBar) v.findViewById(R.id.progressBarActionAll);
-        new MyTaskGetShops(activity,"pinsk").execute();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1 = null;
-                try {
-                    intent1 = new Intent(activity, InfoShopsActivity.class);
-                    intent1.putExtra("href",arrayListShop.get(i).getHref());
-                    intent1.putExtra("name", arrayListShop.get(i).getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
+            arrCityE = v.getResources().getStringArray(R.array.city_en);
+
+            toolbarRel = (RelativeLayout) v.findViewById(R.id.toolbarRel);
+            relFilter = (RelativeLayout) v.findViewById(R.id.relFilter);
+
+            animToolbar = AnimationUtils.loadAnimation(this.getContext(),
+                    R.anim.toolbar_anim_1);
+            animFilter = AnimationUtils.loadAnimation(this.getContext(),
+                    R.anim.filter_anim_1);
+
+            animToolbar2 = AnimationUtils.loadAnimation(this.getContext(),
+                    R.anim.toolbar_anim_2);
+            animFilter2 = AnimationUtils.loadAnimation(this.getContext(),
+                    R.anim.filter_anim_2);
+
+            animToolbar.setAnimationListener(animToolbarListener);
+            animFilter.setAnimationListener(animFilterListener);
+
+            animToolbar2.setAnimationListener(animToolbarListener2);
+            animFilter2.setAnimationListener(animFilterListener2);
+
+            listView = (ListView) v.findViewById(R.id.listAllAction);
+            progressBar = (ProgressBar) v.findViewById(R.id.progressBarActionAll);
+            new MyTaskGetShops(activity,"pinsk").execute();
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent1 = null;
+                    try {
+                        intent1 = new Intent(activity, InfoShopsActivity.class);
+                        intent1.putExtra("href",arrayListShop.get(i).getHref());
+                        intent1.putExtra("name", arrayListShop.get(i).getName());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(intent1);
                 }
-                startActivity(intent1);
+            });
+
+
+            ImageView imgExit = (ImageView) v.findViewById(R.id.imageViewExitListActions);
+            imgExit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //activity.showExit();
+                    new_intent();
+                }
+            });
+
+            Button btnDone = (Button) v.findViewById(R.id.button2);
+            btnDone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new MyTaskGetShops(activity, arrCityE[spinner.getSelectedItemPosition()]).execute();
+                    hideFilter();
+                }
+            });
+
+            Button btnClose = (Button) v.findViewById(R.id.button3);
+            btnClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    hideFilter();
+                }
+            });
+
+            int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
+            if (currentapiVersion >= 22) {
+                // Do something for 14 and above versions
+                Drawable imgClose = v.getResources().getDrawable( R.drawable.ic_clear_black_24dp_red);
+                Drawable imgDone = v.getResources().getDrawable( R.drawable.ic_done_black_24dp);
+                btnDone.setCompoundDrawablesWithIntrinsicBounds(imgDone,null,null,null);
+                btnClose.setCompoundDrawablesWithIntrinsicBounds(imgClose,null,null,null);
+
             }
-        });
-
-
-
-        ImageView imgExit = (ImageView) v.findViewById(R.id.imageViewExitListActions);
-        imgExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.showExit();
-            }
-        });
-
-
-
+            setSpinner();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return  v;
     }
 
@@ -106,6 +172,8 @@ public class FragmentListActions extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
+
+            arrayListShop.clear();
 
             HttpURLConnection urlConnection;
             BufferedReader reader;
@@ -155,4 +223,99 @@ public class FragmentListActions extends Fragment {
 
         }
     }
+    private void new_intent(){
+
+        toolbarRel.startAnimation(animToolbar);
+        relFilter.startAnimation(animFilter);
+
+    }
+    private void hideFilter(){
+        relFilter.startAnimation(animFilter2);
+        toolbarRel.startAnimation(animToolbar2);
+    }
+    private void setSpinner(){
+        spinner = (Spinner) v.findViewById(R.id.spinner2);
+        String[] arrCiry = v.getResources().getStringArray(R.array.city);
+
+
+        List<String> arrayCity = new ArrayList<>();
+        for(int i=0; i< arrCiry.length; i++){
+            arrayCity.add(arrCiry[i]);
+        }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String> (activity,R.layout.item_spinner, arrayCity);
+        spinner.setAdapter(dataAdapter);
+    }
+
+    Animation.AnimationListener animToolbarListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            toolbarRel.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            //relFilter.startAnimation(animFilter);
+            toolbarRel.setVisibility(View.GONE);
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            toolbarRel.setVisibility(View.VISIBLE);
+        }
+    };
+    Animation.AnimationListener animFilterListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            relFilter.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            relFilter.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            relFilter.setVisibility(View.VISIBLE);
+        }
+    };
+
+    Animation.AnimationListener animToolbarListener2 = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            toolbarRel.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+            toolbarRel.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            toolbarRel.setVisibility(View.VISIBLE);
+        }
+    };
+    Animation.AnimationListener animFilterListener2 = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            //toolbarRel.setVisibility(View.VISIBLE);
+            relFilter.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            relFilter.setVisibility(View.GONE);
+            //toolbarRel.setAnimation(animToolbar2);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+//            relFilter.setVisibility(View.VISIBLE);
+        }
+    };
 }

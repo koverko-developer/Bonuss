@@ -104,9 +104,13 @@ public class FragmentPromo extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(Integer.parseInt(price)!=0 && Integer.parseInt(userinfo.getColBuy())!=0) activity.share("VTEME2017"+id);
-                else if(Integer.parseInt(price)==0) Toast.makeText(activity, "Данная функция продавцом не активирована...", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(activity, "Вам нужно совершить хотя бы одну покупку...", Toast.LENGTH_SHORT).show();
+                try {
+                    if(Double.parseDouble(price)!=0 && Integer.parseInt(userinfo.getColBuy())!=0) activity.share("VTEME2017"+id);
+                    else if(Double.parseDouble(price)==0) Toast.makeText(activity, "Данная функция продавцом не активирована...", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(activity, "Вам нужно совершить хотя бы одну покупку...", Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
         });
         if(Integer.parseInt(userinfo.getColBal())>0 && Integer.parseInt(userinfo.getColBuy())>0){

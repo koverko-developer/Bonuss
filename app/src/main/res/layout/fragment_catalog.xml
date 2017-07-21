@@ -100,7 +100,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:popupBackground="@color/color_bg" />
+                    android:dropDownSelector="@drawable/ic_done_black_24dp"
+                    android:popupBackground="@color/blue" />
 
                 <Spinner
                     android:id="@+id/spinner"
@@ -110,7 +111,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:popupBackground="@color/color_bg" />
+                    android:popupBackground="@color/blue" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -133,7 +134,7 @@
                             android:layout_centerHorizontal="false"
                             android:layout_weight="1"
                             android:background="@drawable/btn_filter"
-                            android:drawableLeft="@drawable/ic_clear_black_24dp_red"
+
                             android:padding="8dp"
                             android:text="отмена"
                             android:textSize="10sp" />
@@ -152,7 +153,7 @@
                             android:layout_centerHorizontal="false"
                             android:layout_weight="1"
                             android:background="@drawable/btn_filter"
-                            android:drawableLeft="@drawable/ic_done_black_24dp"
+
                             android:padding="8dp"
                             android:text="готово"
                             android:textSize="10sp" />

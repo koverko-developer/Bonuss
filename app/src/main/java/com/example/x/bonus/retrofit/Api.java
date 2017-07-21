@@ -1,5 +1,6 @@
 package com.example.x.bonus.retrofit;
 
+import com.example.x.bonus.retrofit.filter.Filter;
 import com.example.x.bonus.retrofit.fixwed.InfoF;
 
 import java.util.List;
@@ -59,5 +60,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("bonus/add_view_notice.php")
     Call<Otvet> deleteNotification(@Field("id_user") String id_user,@Field("id_news") String id_news);
+
+    @GET("bonus/sort_company_category.php")
+    Call<List<Filter>> getFilter();
 
 }

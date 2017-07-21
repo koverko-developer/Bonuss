@@ -94,9 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         setImage();
 
-        GifView pGif = (GifView) findViewById(R.id.progressBar);
-        pGif.setImageResource(R.drawable.getimage);
-
 //        Button btnAuth = (Button) findViewById(R.id.buttonAuth);
 //        btnAuth.setOnClickListener(new View.OnClickListener() {
 //            @Override

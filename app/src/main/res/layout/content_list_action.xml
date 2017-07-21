@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_list_action">
 
     <RelativeLayout
+        android:id="@+id/toolbarRel"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/colorPrimary"
@@ -23,7 +24,7 @@
             android:layout_centerVertical="false"
             android:layout_marginRight="8dp"
             android:visibility="visible"
-            app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />
+            app:srcCompat="@drawable/ic_sort_black_24dp" />
 
         <TextView
             android:id="@+id/textView9"
@@ -61,7 +62,93 @@
             android:orientation="horizontal"></LinearLayout>
 
             </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/relFilter"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp"
+            android:visibility="visible"
+            android:weightSum="2">
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:dropDownSelector="@color/back_nav_lv"
+                android:popupBackground="@color/fiolet"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="false"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_filter"
+
+                        android:padding="8dp"
+                        android:text="отмена"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerHorizontal="false"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_filter"
+
+                        android:padding="8dp"
+                        android:text="готово"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_auth"
+            android:text="применить"
+            android:textColor="@color/back_nav_lv"
+            android:visibility="gone" />
+    </RelativeLayout>
     <ProgressBar
         android:id="@+id/progressBarActionAll"
         style="?android:attr/progressBarStyle"

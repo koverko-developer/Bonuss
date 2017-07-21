@@ -80,7 +80,8 @@
         <activity
             android:name=".action.InfoShopsActivity"
             android:label="@string/title_activity_info_shops"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".NacopitActivity"
             android:label="@string/title_activity_nacopit"

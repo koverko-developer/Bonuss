@@ -57,7 +57,7 @@ public class InfoShopsActivity extends AppCompatActivity {
             href = intent.getStringExtra("href");
             String title = intent.getStringExtra("name");
             getSupportActionBar().setTitle("Акции, "+ title);
-            toolbar.setSubtitle("Пинск");
+            //toolbar.setSubtitle("Пинск");
         } catch (Exception e) {
             e.printStackTrace();
         }
