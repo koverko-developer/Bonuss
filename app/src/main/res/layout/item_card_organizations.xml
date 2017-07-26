@@ -111,7 +111,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@{infoOrganizations.img}" />
+                    android:src="@{infoOrganizations.img, default=@drawable/nophoto}" />
 
             </RelativeLayout>
 
