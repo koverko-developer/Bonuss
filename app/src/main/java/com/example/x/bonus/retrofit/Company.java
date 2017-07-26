@@ -58,6 +58,10 @@ public class Company {
     @Expose
     private City city;
 
+    @SerializedName("info")
+    @Expose
+    private String info;
+
     public String getId() {
         return id;
     }
@@ -186,6 +190,11 @@ public class Company {
         this.city = city;
     }
 
+    public String getInfo() {
+        return info;
+    }
 
-
+    public void setInfo(String info) {
+        this.info = info;
+    }
 }

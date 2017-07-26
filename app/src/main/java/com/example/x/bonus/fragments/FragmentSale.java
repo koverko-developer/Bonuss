@@ -181,6 +181,8 @@ public class FragmentSale extends Fragment {
             object.setImg(new ObservableField<String>(list.get(i).getImage()));
             object.setImgCategory(new ObservableField<String>(list.get(i).getCategoryId().getIcon()));
             object.setCity(new ObservableField<String>(list.get(i).getCity().getCity()));
+            if(list.get(i).getInfo().length()>1)object.setInfo(new ObservableField<String>(list.get(i).getInfo()));
+            else object.setInfo(new ObservableField<String>(null));
             organizationList.add(object);
 
         }

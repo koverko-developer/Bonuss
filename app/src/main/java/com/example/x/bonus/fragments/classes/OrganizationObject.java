@@ -34,6 +34,7 @@ public class OrganizationObject extends BaseObservable {
     private ObservableField<String> bt;
 
     private ObservableField<String> textCategoty;
+    private ObservableField<String> info;
 
     public OrganizationObject(){
 
@@ -49,6 +50,8 @@ public class OrganizationObject extends BaseObservable {
         id = new ObservableField<>();
         city = new ObservableField<>();
         bt = new ObservableField<>();
+
+        info = new ObservableField<>();
 
     }
 
@@ -139,6 +142,14 @@ public class OrganizationObject extends BaseObservable {
 
     public void setId(ObservableField<String> pid) {
         id.set(pid.get());
+    }
+
+    public ObservableField<String> getInfo() {
+        return info;
+    }
+
+    public void setInfo(ObservableField<String> pinfo) {
+        info.set(pinfo.get());
     }
 
     @BindingAdapter({"android:src"})

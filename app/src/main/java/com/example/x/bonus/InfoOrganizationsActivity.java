@@ -118,10 +118,12 @@ public class InfoOrganizationsActivity extends AppCompatActivity implements View
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.relAddressInfoOrganizations:
-                Intent intent = new Intent(InfoOrganizationsActivity.this, MapsActivity.class);
-                intent.putExtra("map",maps);
-                intent.putExtra("name", name);
-                startActivity(intent);
+                if(!maps.isEmpty()) {
+                    Intent intent = new Intent(InfoOrganizationsActivity.this, MapsActivity.class);
+                    intent.putExtra("map",maps);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }else Toast.makeText(this, "Пользователь не добавил свои координаты...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.cardSkidka:
                 if(isNakopit){

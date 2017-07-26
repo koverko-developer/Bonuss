@@ -2,7 +2,9 @@ package com.example.x.bonus.action;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,6 +58,12 @@ public class FragmentListActions extends Fragment {
     RelativeLayout toolbarRel, relFilter;
     Spinner spinner, spinner2;
     String[] arrCityE;
+    private static final String APP_PREFERENCES = "config";
+    private static final String APP_PREFERENCES_CITY = "city";
+    String ids;
+    private SharedPreferences mSettings;
+    String city;
+    Button btnDone;
 
 
     ArrayList<Shop> arrayListShop = new ArrayList<>();
@@ -71,10 +79,14 @@ public class FragmentListActions extends Fragment {
         try {
             v = inflater.inflate(R.layout.activity_list_action, container, false);
 
+            mSettings = this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
             arrCityE = v.getResources().getStringArray(R.array.city_en);
 
             toolbarRel = (RelativeLayout) v.findViewById(R.id.toolbarRel);
             relFilter = (RelativeLayout) v.findViewById(R.id.relFilter);
+            city = mSettings.getString(APP_PREFERENCES_CITY,"");
+            if(city.equals("")) city = "pinsk";
 
             animToolbar = AnimationUtils.loadAnimation(this.getContext(),
                     R.anim.toolbar_anim_1);
@@ -94,7 +106,7 @@ public class FragmentListActions extends Fragment {
 
             listView = (ListView) v.findViewById(R.id.listAllAction);
             progressBar = (ProgressBar) v.findViewById(R.id.progressBarActionAll);
-            new MyTaskGetShops(activity,"pinsk").execute();
+            new MyTaskGetShops(activity,city).execute();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -121,10 +133,15 @@ public class FragmentListActions extends Fragment {
                 }
             });
 
-            Button btnDone = (Button) v.findViewById(R.id.button2);
+            btnDone = (Button) v.findViewById(R.id.button2);
             btnDone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    SharedPreferences.Editor editor = mSettings.edit();
+                    editor.putString(APP_PREFERENCES_CITY, arrCityE[spinner.getSelectedItemPosition()]);
+                    editor.apply();
+                    btnDone.setBackground(v.getResources().getDrawable(R.drawable.btn_filter_click_1));
+                    btnDone.setTextColor(v.getResources().getColor(R.color.white));
                     new MyTaskGetShops(activity, arrCityE[spinner.getSelectedItemPosition()]).execute();
                     hideFilter();
                 }
@@ -310,6 +327,8 @@ public class FragmentListActions extends Fragment {
         @Override
         public void onAnimationEnd(Animation animation) {
             relFilter.setVisibility(View.GONE);
+            btnDone.setBackground(v.getResources().getDrawable(R.drawable.btn_filter));
+            btnDone.setTextColor(v.getResources().getColor(R.color.black));
             //toolbarRel.setAnimation(animToolbar2);
         }
 

@@ -8,6 +8,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -91,6 +92,7 @@ public class FragmentCompany extends Fragment {
     RelativeLayout toolbarRel, relFilter;
 
     Spinner spinner, spinner2;
+    Button btnDone;
 
 
     public FragmentCompany(BottomActivity activity){
@@ -147,10 +149,12 @@ public class FragmentCompany extends Fragment {
             }
         });
 
-        Button btnDone = (Button) v.findViewById(R.id.button2);
+        btnDone = (Button) v.findViewById(R.id.button2);
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnDone.setBackground(v.getResources().getDrawable(R.drawable.btn_filter_cliak_2));
+                btnDone.setTextColor(v.getResources().getColor(R.color.white));
                 sort(spinner.getSelectedItem().toString(),"");
                 hideFilter();
             }
@@ -242,6 +246,8 @@ public class FragmentCompany extends Fragment {
             object.setImg(new ObservableField<String>(list.get(i).getImage()));
             object.setImgCategory(new ObservableField<String>(list.get(i).getCategoryId().getIcon()));
             object.setCity(new ObservableField<String>(list.get(i).getCity().getCity()));
+            if(list.get(i).getInfo().length()>1)object.setInfo(new ObservableField<String>(list.get(i).getInfo()));
+            else object.setInfo(new ObservableField<String>(null));
             organizationList.add(object);
         }
         TextView tv = (TextView) v.findViewById(R.id.textView41);
@@ -523,6 +529,8 @@ public class FragmentCompany extends Fragment {
         @Override
         public void onAnimationEnd(Animation animation) {
             relFilter.setVisibility(View.GONE);
+            btnDone.setBackground(v.getResources().getDrawable(R.drawable.btn_filter));
+            btnDone.setTextColor(v.getResources().getColor(R.color.black));
             //toolbarRel.setAnimation(animToolbar2);
         }
 

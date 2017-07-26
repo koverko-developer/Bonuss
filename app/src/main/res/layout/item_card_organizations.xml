@@ -119,10 +119,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="60dp"
                 android:layout_marginTop="8dp"
                 android:background="?attr/colorControlHighlight"
                 android:orientation="horizontal"></LinearLayout>
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@{infoOrganizations.info}"
+                android:visibility="@{infoOrganizations.info!=null ? View.VISIBLE : View.GONE}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
