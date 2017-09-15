@@ -2,6 +2,7 @@ package com.example.x.bonus.fragments.classes;
 
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -20,7 +21,8 @@ public class QRObject extends BaseObservable {
     private ObservableField<String> qr;
     private ObservableField<String> phone;
     private ObservableField<String> invait;
-
+    private ObservableBoolean isQR;
+    private ObservableField<String> shtrih;
 
 
     public QRObject(){
@@ -28,10 +30,26 @@ public class QRObject extends BaseObservable {
         qr = new ObservableField<>();
         phone = new ObservableField<>();
         invait = new ObservableField<>();
+        isQR = new ObservableBoolean(false);
+        shtrih = new ObservableField<>();
 
     }
 
+    public ObservableField<String> getShtrih() {
+        return shtrih;
+    }
 
+    public void setShtrih(ObservableField<String> pshtrih) {
+        shtrih.set(pshtrih.get());
+    }
+
+    public ObservableBoolean getIsQR() {
+        return isQR;
+    }
+
+    public void setIsQR(ObservableBoolean pisQR) {
+        isQR.set(pisQR.get());
+    }
 
     public ObservableField<String> getQr() {
         return qr;

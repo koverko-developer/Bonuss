@@ -35,9 +35,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     EditText edFIO, edLOGIN, edPassword, edADDRESS, edPHONE, edPassword2, edInvait;
     String fio, login, password, address, phone, password2;
     Button btn;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

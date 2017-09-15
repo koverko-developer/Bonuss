@@ -1,5 +1,8 @@
 package com.example.x.bonus.retrofit;
 
+import com.example.x.bonus.action.ExampeInfoShop;
+import com.example.x.bonus.action.Example;
+import com.example.x.bonus.action.Shop;
 import com.example.x.bonus.retrofit.filter.Filter;
 import com.example.x.bonus.retrofit.fixwed.InfoF;
 
@@ -63,5 +66,11 @@ public interface Api {
 
     @GET("bonus/sort_company_category.php")
     Call<List<Filter>> getFilter();
+
+    @GET("bonus/parser/parser_select_city.php")
+    Call<List<Example>> getCityAction(@Query("town") String town);
+
+    @GET("bonus/parser/parser_tovars.php")
+    Call<List<ExampeInfoShop>> getInfoAction(@Query("url") String url);
 
 }

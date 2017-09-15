@@ -92,12 +92,6 @@
 
         </RelativeLayout>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/more"
-            android:layout_width="?android:actionBarSize"
-            android:layout_height="?android:actionBarSize"
-            android:layout_toLeftOf="@+id/more2"
-            rv_centered="true">
 
         <Button
             android:id="@+id/buttonSign"
@@ -110,7 +104,7 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        </com.andexert.library.RippleView>
+
     </LinearLayout>
 
 </RelativeLayout>

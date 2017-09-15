@@ -9,15 +9,14 @@
     tools:context="com.example.x.bonus.MainActivity">
 
 
-
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/bg_header"
         android:elevation="0dp"
         android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textView29"
@@ -60,22 +59,28 @@
         android:id="@+id/imageViewDana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-40dp"
-        android:alpha="0.5"
+        android:scaleType="centerCrop"
         android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.01"
+        android:background="@color/black">
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
         android:orientation="vertical"
         android:padding="16dp"
-        android:weightSum="4">
+        android:weightSum="6">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical"
             android:weightSum="3">
 
@@ -85,6 +90,14 @@
                 android:layout_weight="2"
                 android:orientation="vertical"
                 android:weightSum="6">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_logo_title" />
 
             </RelativeLayout>
 
@@ -129,9 +142,12 @@
                             android:layout_toEndOf="@+id/imageView43"
                             android:layout_toRightOf="@+id/imageView43"
                             android:layout_weight="2"
+                            android:backgroundTint="@color/white"
                             android:ems="10"
                             android:hint="Ваш логин"
-                            android:inputType="textPersonName" />
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
 
                     </RelativeLayout>
 
@@ -162,31 +178,26 @@
                             android:layout_toEndOf="@+id/imageView45"
                             android:layout_toRightOf="@+id/imageView45"
                             android:layout_weight="2"
+                            android:backgroundTint="@color/white"
                             android:ems="10"
                             android:hint="Ваш пароль"
-                            android:inputType="textWebPassword" />
+                            android:inputType="textWebPassword"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
 
                     </RelativeLayout>
-                    <com.andexert.library.RippleView
-                        android:id="@+id/more"
-                        rv_centered="true"
-                        android:layout_width="@dimen/btn_height"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center_horizontal">
-
 
                     <Button
                         android:id="@+id/buttonSign"
-                        android:layout_width="@dimen/btn_height"
+                        android:layout_width="232dp"
                         android:layout_height="@dimen/btn_wifth"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/btn_auth"
-                        android:text="Войти"
+                        android:text="ВХОД"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
-                    </com.andexert.library.RippleView>
 
                     <TextView
                         android:id="@+id/textView37"
@@ -195,7 +206,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:gravity="center_horizontal"
-                        android:text="Забыли пароль?" />
+                        android:text="Забыли пароль?"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -207,7 +219,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="4">
 
             <TextView
                 android:id="@+id/textView5"
@@ -216,26 +228,9 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="РЕГИСТРАЦИЯ"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/imageView3"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="60dp"
-                app:srcCompat="@drawable/mobiapp" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                app:srcCompat="@drawable/raised_light" />
         </RelativeLayout>
 
     </LinearLayout>

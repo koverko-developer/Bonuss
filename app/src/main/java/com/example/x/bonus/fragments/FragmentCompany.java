@@ -298,27 +298,31 @@ public class FragmentCompany extends Fragment {
 
         String company_id = organizationList.get(position).getId().get();
 
-        App.getApi().getBonus(ids,company_id).enqueue(new Callback<Otvet>() {
-            @Override
-            public void onResponse(Call<Otvet> call, Response<Otvet> response) {
-                try {
-                    organizationList.get(position).setIsMy(new ObservableBoolean(false));
+        try {
+            App.getApi().getBonus(ids,company_id).enqueue(new Callback<Otvet>() {
+                @Override
+                public void onResponse(Call<Otvet> call, Response<Otvet> response) {
+                    try {
+                        organizationList.get(position).setIsMy(new ObservableBoolean(false));
 
-                    new myTaskToDb(activity,organizationList.get(position).getImg().get(),
-                            organizationList.get(position).getImgCategory().get(),organizationList.get(position)).execute();
+                        new myTaskToDb(activity,organizationList.get(position).getImg().get(),
+                                organizationList.get(position).getImgCategory().get(),organizationList.get(position)).execute();
 
 
 
-                }catch (Exception e){
-                    e.printStackTrace();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Otvet> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Otvet> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -357,8 +361,13 @@ public class FragmentCompany extends Fragment {
     }
 
     protected Object fetch(String address) throws MalformedURLException,IOException {
-        URL url = new URL(address);
-        Object content = url.getContent();
+        Object content = null;
+        try {
+            URL url = new URL(address);
+            content = url.getContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return content;
     }
     public static Bitmap getBitmapFromURL(String src) {

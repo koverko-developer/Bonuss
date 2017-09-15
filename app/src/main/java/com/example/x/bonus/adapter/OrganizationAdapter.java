@@ -38,13 +38,17 @@ public class   OrganizationAdapter extends RecyclerView.Adapter<OrganizationView
     @Override
     public void onBindViewHolder(OrganizationViewHolder holder, int position) {
 
-        final OrganizationObject categoryObject = categoryObjectList.get(position);
-        holder.getBindings().setVariable(BR.infoOrganizations, categoryObject);
-        OrganizationsHandlers handlers = new OrganizationsHandlers(activity,position);
-        holder.getBindings().setVariable(BR.organizationsHandler,handlers);
+        try {
+            final OrganizationObject categoryObject = categoryObjectList.get(position);
+            holder.getBindings().setVariable(BR.infoOrganizations, categoryObject);
+            OrganizationsHandlers handlers = new OrganizationsHandlers(activity,position);
+            holder.getBindings().setVariable(BR.organizationsHandler,handlers);
 //        MyHandlers handlers = new MyHandlers(activity, position);
 //        holder.getBindings().setVariable(BR.handlers,handlers);
-        holder.getBindings().executePendingBindings();
+            holder.getBindings().executePendingBindings();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

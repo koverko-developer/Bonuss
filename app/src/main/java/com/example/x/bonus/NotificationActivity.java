@@ -128,7 +128,7 @@ public class NotificationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                finish();
                 // do what you want to be done on home button click event
                 return true;
             case R.id.action_create:

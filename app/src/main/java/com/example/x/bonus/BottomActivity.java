@@ -154,31 +154,31 @@ public class BottomActivity extends AppCompatActivity implements OnBottomNavigat
             e.printStackTrace();
         }
 
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
-
-                    displayFirebaseRegId();
-
-                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
-                    String message = intent.getStringExtra("message");
-
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    //txtMessage.setText(message);
-                }
-            }
-        };
-
-        displayFirebaseRegId();
+//        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//
+//                // checking for type intent filter
+//                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+//                    // gcm successfully registered
+//                    // now subscribe to `global` topic to receive app wide notifications
+//                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+//
+//                    displayFirebaseRegId();
+//
+//                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+//                    // new push notification is received
+//
+//                    String message = intent.getStringExtra("message");
+//
+//                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+//
+//                    //txtMessage.setText(message);
+//                }
+//            }
+//        };
+//
+//        displayFirebaseRegId();
     }
 
 
@@ -305,7 +305,7 @@ public class BottomActivity extends AppCompatActivity implements OnBottomNavigat
         SharedPreferences.Editor editor1 = mSettings.edit();
         editor1.putString(APP_PREFERENCES_TOKEN,"");
         editor1.apply();
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(BottomActivity.this,MainActivity.class));
     }
 
     public void call(String phone){

@@ -144,12 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
-                        <com.andexert.library.RippleView
-                            android:id="@+id/more1"
-                            rv_centered="true"
-                            android:layout_width="120dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal">
+
                         <Button
                             android:id="@+id/button2"
                             android:layout_width="120dp"
@@ -158,11 +153,10 @@
                             android:layout_centerHorizontal="false"
                             android:layout_weight="1"
                             android:background="@drawable/btn_filter"
-
+                            android:layout_gravity="center_horizontal"
                             android:padding="8dp"
                             android:text="готово"
                             android:textSize="10sp" />
-                        </com.andexert.library.RippleView>
                     </RelativeLayout>
 
                 </LinearLayout>

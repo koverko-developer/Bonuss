@@ -2,13 +2,13 @@
 
     <item>
         <shape>
-            <stroke android:color="@color/colorPrimary" android:width="2dp"/>
-            <solid android:color="@color/colorPrimary"/>
+            <stroke android:color="#ffb400" android:width="2dp"/>
+            <solid android:color="#ffb400"/>
             <corners
-                android:bottomRightRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomLeftRadius="5dp"
-                android:topLeftRadius="5dp"
+                android:bottomRightRadius="2dp"
+                android:topRightRadius="2dp"
+                android:bottomLeftRadius="2dp"
+                android:topLeftRadius="2dp"
                 />
         </shape>
     </item>

@@ -71,7 +71,7 @@ public class ShopsAdapter extends BaseAdapter {
 
         try {
             Picasso.with(context)
-                    .load("http://gazetki.by"+products.get(position).getImg())
+                    .load(products.get(position).getImg())
                     .into(holder.img);
         } catch (Exception e) {
             e.printStackTrace();

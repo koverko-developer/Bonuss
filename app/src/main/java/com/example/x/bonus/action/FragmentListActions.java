@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.x.bonus.BottomActivity;
 import com.example.x.bonus.R;
+import com.example.x.bonus.retrofit.App;
 
 
 import org.jsoup.Jsoup;
@@ -41,6 +42,10 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mobi app on 26.06.2017.
@@ -106,7 +111,7 @@ public class FragmentListActions extends Fragment {
 
             listView = (ListView) v.findViewById(R.id.listAllAction);
             progressBar = (ProgressBar) v.findViewById(R.id.progressBarActionAll);
-            new MyTaskGetShops(activity,city).execute();
+            //new MyTaskGetShops(activity,city).execute();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -142,7 +147,8 @@ public class FragmentListActions extends Fragment {
                     editor.apply();
                     btnDone.setBackground(v.getResources().getDrawable(R.drawable.btn_filter_click_1));
                     btnDone.setTextColor(v.getResources().getColor(R.color.white));
-                    new MyTaskGetShops(activity, arrCityE[spinner.getSelectedItemPosition()]).execute();
+                    //new MyTaskGetShops(activity, arrCityE[spinner.getSelectedItemPosition()]).execute();
+                    getList(arrCityE[spinner.getSelectedItemPosition()]);
                     hideFilter();
                 }
             });
@@ -166,10 +172,39 @@ public class FragmentListActions extends Fragment {
 
             }
             setSpinner();
+
+            getList(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return  v;
+    }
+
+    private void getList(String city){
+        progressBar.setVisibility(View.VISIBLE);
+
+        App.getApi().getCityAction(city).enqueue(new Callback<List<Example>>() {
+            @Override
+            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
+                List<Example> list = response.body();
+                List<Datum> datum = list.get(0).getData();
+                arrayListShop.clear();
+                for(Datum datum1 : datum ){
+                    arrayListShop.add(new Shop(datum1.getName(), datum1.getImg(), datum1.getHref()));
+                }
+                progressBar.setVisibility(View.GONE);
+                if(arrayListShop.size()==0) Toast.makeText(activity, "Отсутствует подключение к интернету",Toast.LENGTH_SHORT).show();
+                listView.setAdapter(new ShopsAdapter(activity, arrayListShop));
+
+                String s = "";
+            }
+
+            @Override
+            public void onFailure(Call<List<Example>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(activity, "Отсутствует подключение к интернету", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     class MyTaskGetShops extends AsyncTask<Void,Void,Void> {

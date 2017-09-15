@@ -56,43 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        edLogin = (EditText) findViewById(R.id.editTextLog);
-        edPassword = (EditText) findViewById(R.id.editTextPass);
-        btn = (Button) findViewById(R.id.buttonSign);
-        tvEditPassword = (TextView) findViewById(R.id.textView37);
-        tvEditPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogEditPassword();
-            }
-        });
-
-        imgDana = (ImageView) findViewById(R.id.imageViewDana);
-
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
-        tv =(TextView) findViewById(R.id.textView5);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-                    startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(getValidForm()) login();
-                else Toast.makeText(MainActivity.this, "Заполните все необходимые поля!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        setImage();
+        initialize();
 
 //        Button btnAuth = (Button) findViewById(R.id.buttonAuth);
 //        btnAuth.setOnClickListener(new View.OnClickListener() {
@@ -149,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
         try {
 
             String ss = edPassword.getText().toString();
-            ss = ss.toLowerCase();
+            //ss = ss.toLowerCase();
             String s = md5(ss);
             s = s.toLowerCase();
-            displayFirebaseRegId();
+            //displayFirebaseRegId();
             App.getApi().login(edLogin.getText().toString(),
                     s
             ).enqueue(new Callback<Otvet>() {
@@ -168,17 +132,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString(APP_PREFERENCES_PHONE, otvet.getPhone());
                         editor.apply();
 
-                        try{
-                            URL myURL = new URL("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+otvet.getMessage());
-
-
-                            new getBitmap(myURL).execute();
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-                        //startActivity(new Intent(MainActivity.this, BottomActivity.class));
+                        startActivity(new Intent(MainActivity.this, BottomActivity.class));
 
                     }
                     else Toast.makeText(MainActivity.this, otvet.getMessage(),Toast.LENGTH_SHORT).show();
@@ -196,7 +150,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setImage(){
-        Picasso.with(imgDana.getContext()).load(R.drawable.telka).into(imgDana);
+        try {
+            Picasso.with(imgDana.getContext()).load(R.drawable.bg_login).into(imgDana);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -309,5 +267,59 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
         String s = "";
+    }
+
+    private void initialize(){
+        try {
+            edLogin = (EditText) findViewById(R.id.editTextLog);
+            edPassword = (EditText) findViewById(R.id.editTextPass);
+            btn = (Button) findViewById(R.id.buttonSign);
+            tvEditPassword = (TextView) findViewById(R.id.textView37);
+            tvEditPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDialogEditPassword();
+                }
+            });
+
+            imgDana = (ImageView) findViewById(R.id.imageViewDana);
+
+            mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+            tv =(TextView) findViewById(R.id.textView5);
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    try {
+                        startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(getValidForm()) login();
+                    else Toast.makeText(MainActivity.this, "Заполните все необходимые поля!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            setImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        try {
+            initialize();
+            super.onPostResume();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

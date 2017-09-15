@@ -68,25 +68,17 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <com.andexert.library.RippleView
-                android:id="@+id/more"
-                rv_centered="true"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
-
                 <Button
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/buttonActivateBonus"
-
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/btn_auth_no_active"
                     android:text="АКТИВИРОВАТЬ БОНУС"
                     android:textColor="@color/colorActive" />
-            </com.andexert.library.RippleView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.x.bonus.R;
+import com.example.x.bonus.retrofit.App;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,6 +29,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InfoShopsActivity extends AppCompatActivity {
 
@@ -61,8 +68,40 @@ public class InfoShopsActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        getIngoShop(href);
+        //new MyTaskGetShops(InfoShopsActivity.this, href).execute();
+    }
 
-        new MyTaskGetShops(InfoShopsActivity.this, href).execute();
+    private void getIngoShop(String url){
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+            App.getApi().getInfoAction(url).enqueue(new Callback<List<ExampeInfoShop>>() {
+                @Override
+                public void onResponse(Call<List<ExampeInfoShop>> call, Response<List<ExampeInfoShop>> response) {
+                    List<ExampeInfoShop> list = response.body();
+                    if(list.get(0).getInfo()!=null){
+                        List<Info> infos = list.get(0).getInfo();
+                        arrayList.clear();
+
+                        for(Info info : infos){
+                            arrayList.add(new InfoActionShop(info.getTitle(), info.getPrice(), info.getSale(),
+                                    info.getTime(), info.getImage()));
+                        }
+                    }
+                    if(arrayList.size()!=0)listView.setAdapter(new AdapterActionShops(InfoShopsActivity.this, arrayList));
+                    else tvEmpty.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onFailure(Call<List<ExampeInfoShop>> call, Throwable t) {
+                    Toast.makeText(InfoShopsActivity.this, "Проверьте подключениие к интернету", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     class MyTaskGetShops extends AsyncTask<Void,Void,Void> {

@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.x.bonus.adapter.NotificationAdapter;
-import com.example.x.bonus.databinding.FragmentQrBinding;
 import com.example.x.bonus.fragments.classes.NotificationObject;
 import com.example.x.bonus.fragments.classes.OrganizationObject;
 import com.example.x.bonus.retrofit.App;
@@ -205,24 +204,28 @@ public class FragmentSale extends Fragment {
     }
 
     public void getCountNotifycation(){
-        App.getApi().getNotification(ids).enqueue(new Callback<List<Notification>>() {
-            @Override
-            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
-                Notification notification = response.body().get(0);
-                int col = notification.getNoticeAll().size();
-                if(col>0) {
-                    tvCol.setText("+"+String.valueOf(col));
-                    tvCol.setVisibility(View.VISIBLE);
-                    imgNotification.setEnabled(true);
+        try {
+            App.getApi().getNotification(ids).enqueue(new Callback<List<Notification>>() {
+                @Override
+                public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
+                    Notification notification = response.body().get(0);
+                    int col = notification.getNoticeAll().size();
+                    if(col>0) {
+                        tvCol.setText("+"+String.valueOf(col));
+                        tvCol.setVisibility(View.VISIBLE);
+                        imgNotification.setEnabled(true);
+                    }
+                    String s = "";
                 }
-                String s = "";
-            }
 
-            @Override
-            public void onFailure(Call<List<Notification>> call, Throwable t) {
-               // activity.readDB();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Notification>> call, Throwable t) {
+                   // activity.readDB();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void call(int position){
@@ -233,7 +236,11 @@ public class FragmentSale extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
-        getCountNotifycation();
+        try {
+            super.onResume();
+            getCountNotifycation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
